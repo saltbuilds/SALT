@@ -6,6 +6,7 @@ import Packages from './components/Packages';
 import Portfolio from './components/Portfolio';
 import Footer from './components/Footer';
 import ChatAssistant from './components/ChatAssistant';
+import CustomCursor from './components/CustomCursor';
 
 const App: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -20,6 +21,8 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col relative overflow-hidden bg-gradient-to-br from-white via-[#F8FEFF] to-[#F0FAFB]">
+      <CustomCursor />
+      
       {/* Royal Background System with Subtle Cyan Gradient */}
       <div className="fixed inset-0 -z-10 pointer-events-none">
         {/* Refined Mist Gradient Base */}

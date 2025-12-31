@@ -42,6 +42,7 @@ const Portfolio: React.FC = () => {
             <div 
               key={project.id}
               className="group cursor-pointer"
+              data-cursor-text="VIEW"
             >
               <div 
                 className="aspect-[4/5] rounded-3xl mb-6 relative overflow-hidden transition-all group-hover:shadow-2xl border-2 border-slate-50"
