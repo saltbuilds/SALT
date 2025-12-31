@@ -9,13 +9,18 @@ export const COLORS = {
   GRAY_TEXT: '#64748B'
 };
 
+/**
+ * MANUAL LOGO CHANGE INSTRUCTIONS:
+ * 1. To use your own image: Set 'useImage' to true and paste your URL in 'imageUrl'.
+ * 2. To use an SVG: Set 'useImage' to false and modify the 'svg' properties below.
+ */
 export const BRAND_CONFIG = {
   name: "SALT.",
   fullName: "SALT Web Development Agency",
   tagline: "Building Digital Foundations",
   description: "Crafting modern digital experiences with precision and clarity. We are your partner in building foundations that last.",
   logo: {
-    useImage: true,
+    useImage: true, 
     imageUrl: "https://images.squarespace-cdn.com/content/v1/5f1b297920f32e2930491a9b/1595610015507-O3O3N0O3O3N0O3O3N0O3/Crystal+Cube+Logo.png",
     svg: {
       viewBox: "0 0 100 100",
@@ -38,6 +43,7 @@ export const SaltLogo: React.FC<{ className?: string, color?: string }> = ({
   className = "w-10 h-10", 
   color = COLORS.NAVY 
 }) => {
+  // Option 1: Render Image
   if (BRAND_CONFIG.logo.useImage) {
     return (
       <div className={`${className} flex items-center justify-center overflow-hidden`}>
@@ -45,11 +51,16 @@ export const SaltLogo: React.FC<{ className?: string, color?: string }> = ({
           src={BRAND_CONFIG.logo.imageUrl} 
           alt={BRAND_CONFIG.name} 
           className="w-full h-full object-contain"
-          onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+          onError={(e) => { 
+            // Fallback if image fails to load
+            (e.target as HTMLImageElement).style.display = 'none';
+          }}
         />
       </div>
     );
   }
+
+  // Option 2: Render SVG
   return (
     <svg viewBox={BRAND_CONFIG.logo.svg.viewBox} className={className} fill="none">
       {BRAND_CONFIG.logo.svg.overlays.map((o, i) => (

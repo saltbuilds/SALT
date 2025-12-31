@@ -15,8 +15,9 @@ const ChatAssistant: React.FC = () => {
   const chatRef = useRef<any>(null);
 
   useEffect(() => {
+    // Correct initialization using process.env.API_KEY directly
     if (!chatRef.current) {
-      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
+      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
       chatRef.current = ai.chats.create({
         model: 'gemini-3-flash-preview',
         config: {
@@ -41,12 +42,15 @@ const ChatAssistant: React.FC = () => {
     if (!input.trim() || isTyping) return;
 
     const userMessage: Message = { role: 'user', text: input };
+    const currentInput = input;
     setMessages(prev => [...prev, userMessage]);
     setInput('');
     setIsTyping(true);
 
     try {
-      const response = await chatRef.current.sendMessage({ message: input });
+      // Using chat.sendMessage which is correctly configured with Gemini 3 Flash
+      const response = await chatRef.current.sendMessage({ message: currentInput });
+      // Accessing response.text property directly as per @google/genai guidelines
       const modelText = response.text || "I'm sorry, I encountered an issue. Please try again.";
       setMessages(prev => [...prev, { role: 'model', text: modelText }]);
     } catch (error) {

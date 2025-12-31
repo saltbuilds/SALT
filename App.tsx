@@ -32,8 +32,8 @@ const App: React.FC = () => {
           <Portfolio />
         </section>
       </main>
-      <Footer />
       <ChatAssistant />
+      <Footer />
     </div>
   );
 };
