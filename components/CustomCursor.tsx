@@ -77,7 +77,7 @@ const CustomCursor: React.FC = () => {
       {/* Center Dot */}
       <div 
         ref={cursorRef}
-        className="fixed top-0 left-0 w-1.5 h-1.5 rounded-full -translate-x-1/2 -translate-y-1/2 mix-blend-difference"
+        className="fixed top-0 left-0 w-5 h-5 rounded-full -translate-x-1/2 -translate-y-1/2 mix-blend-difference"
         style={{ backgroundColor: COLORS.AQUA }}
       />
       
