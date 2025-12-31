@@ -182,29 +182,6 @@ const Hero: React.FC = () => {
             </div>
           </div>
 
-          {/* Floating Chef Shaker 'Seasoning' the UI */}
-          <div className="absolute -top-20 -right-10 z-20 animate-chef-hover group-hover:scale-110 transition-transform">
-            <div className="relative">
-              <SaltCharacter type="chef" size={140} />
-              
-              {/* Concentrated 'Magic Salt' Spray */}
-              <div className="absolute top-1/2 left-0 w-40 h-60 pointer-events-none transform -rotate-[30deg] -translate-x-full">
-                {Array.from({ length: 20 }).map((_, i) => (
-                  <div 
-                    key={i}
-                    className="absolute w-1 h-1 bg-aqua rounded-full animate-magic-dust"
-                    style={{
-                      left: `${Math.random() * 100}%`,
-                      top: `${Math.random() * 20}%`,
-                      animationDelay: `${Math.random() * 3}s`,
-                      opacity: 0,
-                    }}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-
           {/* Decorative Floating Glass */}
           <div className="absolute -bottom-8 -left-8 w-40 h-40 rounded-3xl border border-white/40 rotate-12 -z-10 bg-white/20 backdrop-blur-2xl shadow-xl hidden md:block" />
         </div>
@@ -252,23 +229,6 @@ const Hero: React.FC = () => {
         }
         .animate-shimmer {
           animation: shimmer 2s infinite linear;
-        }
-
-        @keyframes chef-hover {
-          0%, 100% { transform: translateY(0) rotate(0deg); }
-          50% { transform: translateY(-15px) rotate(5deg); }
-        }
-        .animate-chef-hover {
-          animation: chef-hover 5s ease-in-out infinite;
-        }
-
-        @keyframes magic-dust {
-          0% { transform: translate(0, 0) scale(0); opacity: 0; }
-          20% { opacity: 1; scale: 1; }
-          100% { transform: translate(-100px, 300px) scale(0.5); opacity: 0; }
-        }
-        .animate-magic-dust {
-          animation: magic-dust 2s ease-in infinite;
         }
 
         @keyframes fill-high-fi {
