@@ -12,10 +12,10 @@ const projects: ProjectType[] = [
 
 const Portfolio: React.FC = () => {
   return (
-    <div id="portfolio" className="py-16 md:py-24">
+    <div id="portfolio" className="py-24 md:py-32">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
-          <div className="space-y-2">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
+          <div className="space-y-4">
             <h2 
               className="text-4xl md:text-5xl font-black uppercase tracking-tighter"
               style={{ color: COLORS.NAVY }}
@@ -44,7 +44,7 @@ const Portfolio: React.FC = () => {
               className="group cursor-pointer"
             >
               <div 
-                className="aspect-[4/5] rounded-3xl mb-4 relative overflow-hidden transition-all group-hover:shadow-2xl border-2 border-slate-50"
+                className="aspect-[4/5] rounded-3xl mb-6 relative overflow-hidden transition-all group-hover:shadow-2xl border-2 border-slate-50"
                 style={{ backgroundColor: COLORS.GRAY_LIGHT }}
               >
                 {/* 2D Design representation */}

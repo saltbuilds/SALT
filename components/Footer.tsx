@@ -48,23 +48,23 @@ const Footer: React.FC = () => {
   ];
 
   return (
-    <footer className="py-16 text-white relative overflow-hidden" style={{ backgroundColor: COLORS.NAVY }} id="contact">
+    <footer className="py-20 text-white relative overflow-hidden" style={{ backgroundColor: COLORS.NAVY }} id="contact">
       {/* Vacation Mascot placement */}
       <div className="absolute top-10 right-10 opacity-20 hover:opacity-100 transition-opacity hidden lg:block">
         <SaltCharacter type="vacation" size={150} />
       </div>
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="grid md:grid-cols-4 gap-12 mb-12">
+        <div className="grid md:grid-cols-4 gap-16 mb-20">
           {/* Brand */}
-          <div className="col-span-2 space-y-6">
+          <div className="col-span-2 space-y-8">
             <div className="flex items-center gap-4">
               <div className="p-2 bg-white rounded-xl">
                 <SaltLogo className="w-8 h-8" />
               </div>
               <span className="text-3xl font-black tracking-tighter">SALT.</span>
             </div>
-            <p className="text-lg text-slate-300 leading-relaxed max-w-md">
+            <p className="text-xl text-slate-300 leading-relaxed max-w-md">
               Crafting modern digital experiences with precision and clarity. We are your partner in building foundations that last.
             </p>
             <div className="flex gap-4">
@@ -85,29 +85,29 @@ const Footer: React.FC = () => {
 
           {/* Links 1 */}
           <div>
-            <h5 className="text-lg font-bold mb-6 uppercase tracking-widest text-slate-400">Services</h5>
-            <ul className="space-y-3 font-medium text-slate-300">
-              <li className="hover:text-white cursor-pointer transition-colors text-sm">Web Development</li>
-              <li className="hover:text-white cursor-pointer transition-colors text-sm">UI/UX Design</li>
-              <li className="hover:text-white cursor-pointer transition-colors text-sm">E-Commerce</li>
-              <li className="hover:text-white cursor-pointer transition-colors text-sm">SEO Strategy</li>
+            <h5 className="text-lg font-bold mb-8 uppercase tracking-widest text-slate-400">Services</h5>
+            <ul className="space-y-4 font-medium text-slate-300">
+              <li className="hover:text-white cursor-pointer transition-colors">Web Development</li>
+              <li className="hover:text-white cursor-pointer transition-colors">UI/UX Design</li>
+              <li className="hover:text-white cursor-pointer transition-colors">E-Commerce</li>
+              <li className="hover:text-white cursor-pointer transition-colors">SEO Strategy</li>
             </ul>
           </div>
 
           {/* Links 2 */}
           <div>
-            <h5 className="text-lg font-bold mb-6 uppercase tracking-widest text-slate-400">Contact</h5>
-            <ul className="space-y-3 font-medium text-slate-300">
-              <li className="text-sm">hello@salt-agency.com</li>
-              <li className="text-sm">saltbuilds@gmail.com</li>
+            <h5 className="text-lg font-bold mb-8 uppercase tracking-widest text-slate-400">Contact</h5>
+            <ul className="space-y-4 font-medium text-slate-300">
+              <li>hello@salt-agency.com</li>
+              <li>saltbuilds@gmail.com</li>
               <li className="pt-2 text-slate-500 text-xs italic">Building digital foundations worldwide.</li>
             </ul>
           </div>
         </div>
 
-        <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-slate-500 text-xs font-medium">
+        <div className="pt-10 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 text-slate-500 text-sm font-medium">
           <div>© {new Date().getFullYear()} SALT Web Development Agency. All rights reserved.</div>
-          <div className="flex gap-6">
+          <div className="flex gap-8">
             <span className="hover:text-white cursor-pointer transition-colors">Privacy Policy</span>
             <span className="hover:text-white cursor-pointer transition-colors">Terms of Service</span>
           </div>
