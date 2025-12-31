@@ -1,34 +1,41 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { GoogleGenAI } from '@google/genai';
-import { COLORS, SaltLogo } from '../constants';
+import { COLORS, SaltLogo, BRAND_CONFIG } from '../constants';
 import { Message } from '../types';
 
 const ChatAssistant: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'model', text: 'Hi! I am the SALT Assistant. How can I help you build your digital foundation today?' }
+    { role: 'model', text: `Hi! I am the ${BRAND_CONFIG.name} Assistant. How can I help you build your digital foundation today?` }
   ]);
   const [isTyping, setIsTyping] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const chatRef = useRef<any>(null);
 
   useEffect(() => {
-    // Correct initialization using process.env.API_KEY directly
+    // Initialization with safety check for process.env
     if (!chatRef.current) {
-      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-      chatRef.current = ai.chats.create({
-        model: 'gemini-3-flash-preview',
-        config: {
-          systemInstruction: `You are the AI assistant for SALT Web Development Agency. 
-          Your tone is professional, premium, and direct. 
-          SALT builds high-performance websites and digital foundations.
-          Key services: UI/UX Design, Web Development, SEO, E-commerce.
-          Pricing: Monthly (8k), 6-Month (7k/mo), Annual (6k/mo).
-          Encourage users to "Get Started" or "View Portfolio". Keep responses concise.`
+      try {
+        const apiKey = typeof process !== 'undefined' && process.env ? process.env.API_KEY : '';
+        if (apiKey) {
+          const ai = new GoogleGenAI({ apiKey: apiKey });
+          chatRef.current = ai.chats.create({
+            model: 'gemini-3-flash-preview',
+            config: {
+              systemInstruction: `You are the AI assistant for ${BRAND_CONFIG.fullName}. 
+              Your tone is professional, premium, and direct. 
+              SALT builds high-performance websites and digital foundations.
+              Key services: UI/UX Design, Web Development, SEO, E-commerce.
+              Pricing: Monthly (8k), 6-Month (7k/mo), Annual (6k/mo).
+              Encourage users to "Get Started" or "View Portfolio". Keep responses concise.`
+            }
+          });
         }
-      });
+      } catch (e) {
+        console.error("AI Assistant failed to initialize:", e);
+      }
     }
   }, []);
 
@@ -40,6 +47,11 @@ const ChatAssistant: React.FC = () => {
 
   const handleSend = async () => {
     if (!input.trim() || isTyping) return;
+    if (!chatRef.current) {
+      setMessages(prev => [...prev, { role: 'user', text: input }, { role: 'model', text: "I'm currently offline. Please contact us via email!" }]);
+      setInput('');
+      return;
+    }
 
     const userMessage: Message = { role: 'user', text: input };
     const currentInput = input;
@@ -48,9 +60,7 @@ const ChatAssistant: React.FC = () => {
     setIsTyping(true);
 
     try {
-      // Using chat.sendMessage which is correctly configured with Gemini 3 Flash
       const response = await chatRef.current.sendMessage({ message: currentInput });
-      // Accessing response.text property directly as per @google/genai guidelines
       const modelText = response.text || "I'm sorry, I encountered an issue. Please try again.";
       setMessages(prev => [...prev, { role: 'model', text: modelText }]);
     } catch (error) {
@@ -88,7 +98,7 @@ const ChatAssistant: React.FC = () => {
                 <SaltLogo className="w-6 h-6" />
               </div>
               <div>
-                <div className="font-bold text-sm tracking-tight">SALT. Assistant</div>
+                <div className="font-bold text-sm tracking-tight">{BRAND_CONFIG.name} Assistant</div>
                 <div className="text-[10px] uppercase tracking-widest opacity-60">Online Now</div>
               </div>
             </div>

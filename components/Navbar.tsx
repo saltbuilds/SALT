@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { SaltLogo, COLORS } from '../constants';
+import { BrandIdentity, COLORS } from '../constants';
 
 interface NavbarProps {
   scrolled: boolean;
@@ -23,16 +23,8 @@ const Navbar: React.FC<NavbarProps> = ({ scrolled }) => {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-        {/* Logo */}
-        <div className="flex items-center gap-3 group cursor-pointer">
-          <SaltLogo className="w-8 h-8 transition-transform group-hover:rotate-12" />
-          <span 
-            className="text-2xl font-extrabold tracking-tighter"
-            style={{ color: COLORS.NAVY }}
-          >
-            SALT
-          </span>
-        </div>
+        {/* Brand/Logo */}
+        <BrandIdentity iconSize="w-8 h-8" textSize="text-2xl" />
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center gap-10">
