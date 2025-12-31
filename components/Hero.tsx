@@ -16,9 +16,9 @@ const Hero: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-20 items-center">
         {/* Content */}
         <div className="space-y-8 max-w-xl text-left z-10 relative">
-          {/* Floating Mascot */}
-          <div className="absolute -top-24 -left-10 animate-bounce pointer-events-none hidden md:block" style={{ animationDuration: '4s' }}>
-            <SaltCharacter type="hero" size={120} />
+          {/* Floating Mascot - Adjusted position slightly to not crowd the logo area above */}
+          <div className="absolute -top-16 -left-12 animate-bounce pointer-events-none hidden md:block" style={{ animationDuration: '4s' }}>
+            <SaltCharacter type="hero" size={110} />
           </div>
 
           <div 
@@ -80,8 +80,6 @@ const Hero: React.FC = () => {
             <div className="p-10 flex flex-col justify-between h-[calc(100%-40px)]">
               <div className="w-2/3 h-10 bg-white/60 rounded-xl" />
               
-              {/* Lines removed as requested in the screenshot edits */}
-              
               <div className="grid grid-cols-3 gap-6">
                 {[1,2,3].map(i => (
                   <div key={i} className="aspect-square bg-white/50 rounded-2xl border border-white/20 shadow-inner" />
@@ -94,7 +92,6 @@ const Hero: React.FC = () => {
           <div 
             className="absolute -bottom-12 -left-12 w-48 h-48 rounded-3xl border border-white/40 rotate-12 -z-10 bg-white/20 backdrop-blur-2xl shadow-xl hidden md:block"
           />
-          {/* Chef mascot circle removed as requested in the screenshot edits */}
         </div>
       </div>
     </div>
