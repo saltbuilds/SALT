@@ -11,30 +11,32 @@ const Hero: React.FC = () => {
     }
   };
 
-  // Generate unique salt particles for the hero mascot
+  // Generate a larger pool of salt particles for a more continuous, natural feel
   const saltGrains = useMemo(() => {
-    return Array.from({ length: 15 }).map((_, i) => ({
+    return Array.from({ length: 40 }).map((_, i) => ({
       id: i,
-      left: `${35 + Math.random() * 30}%`, // Concentrated near the lid holes
-      delay: `${Math.random() * 5}s`, // Spread out to happen "time to time"
-      duration: `${1.2 + Math.random() * 0.8}s`,
-      size: `${1.5 + Math.random() * 2.5}px`,
-      drift: (Math.random() - 0.5) * 60,
+      left: `${30 + Math.random() * 40}%`, // Aligned with the lid holes
+      delay: `${Math.random() * 8}s`, // Highly staggered for "time to time" effect
+      duration: `${3 + Math.random() * 4}s`, // Slower, more natural falling speed
+      size: `${1 + Math.random() * 3}px`,
+      drift: (Math.random() - 0.5) * 150, // Wider horizontal drift as they fall
+      opacity: 0.3 + Math.random() * 0.7,
+      rotation: Math.random() * 360,
     }));
   }, []);
 
   return (
-    <div className="relative pt-32 pb-20 md:pt-48 md:pb-40 overflow-hidden">
+    <div className="relative pt-32 pb-20 md:pt-48 md:pb-40 overflow-hidden min-h-[90vh]">
       <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-20 items-center">
         {/* Content */}
         <div className="space-y-8 max-w-xl text-left z-10 relative">
-          {/* Floating Mascot with Black Salt Sprinkle Animation */}
+          {/* Floating Mascot with Natural Salt Sprinkle Animation */}
           <div className="absolute -top-16 -left-12 animate-hero-bounce pointer-events-none hidden md:block" style={{ animationDuration: '4s' }}>
             <div className="relative">
               <SaltCharacter type="hero" size={110} />
               
-              {/* Black Salt Sprinkle Particles */}
-              <div className="absolute top-2 left-0 w-full h-full pointer-events-none">
+              {/* Natural Black Salt Sprinkle Particles */}
+              <div className="absolute top-4 left-0 w-full h-screen pointer-events-none overflow-visible">
                 {saltGrains.map((grain) => (
                   <div
                     key={grain.id}
@@ -43,9 +45,11 @@ const Hero: React.FC = () => {
                       width: grain.size,
                       height: grain.size,
                       left: grain.left,
+                      opacity: grain.opacity,
                       animationDelay: grain.delay,
                       animationDuration: grain.duration,
                       '--drift': `${grain.drift}px`,
+                      '--rot': `${grain.rotation}deg`,
                     } as React.CSSProperties}
                   />
                 ))}
@@ -130,22 +134,25 @@ const Hero: React.FC = () => {
       <style>{`
         @keyframes hero-bounce {
           0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-20px); }
+          50% { transform: translateY(-25px); }
         }
         .animate-hero-bounce {
           animation: hero-bounce 4s ease-in-out infinite;
         }
         @keyframes sprinkle {
           0% {
-            transform: translateY(0) translateX(0) scale(0);
+            transform: translateY(0) translateX(0) rotate(0deg) scale(0);
             opacity: 0;
           }
-          15% {
+          5% {
             opacity: 1;
-            transform: translateY(10px) translateX(0) scale(1);
+            transform: translateY(5px) translateX(0) rotate(10deg) scale(1);
+          }
+          90% {
+            opacity: 0.6;
           }
           100% {
-            transform: translateY(140px) translateX(var(--drift)) scale(0.4);
+            transform: translateY(800px) translateX(var(--drift)) rotate(var(--rot)) scale(0.3);
             opacity: 0;
           }
         }
