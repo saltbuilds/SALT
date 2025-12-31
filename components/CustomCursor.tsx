@@ -29,8 +29,8 @@ const CustomCursor: React.FC = () => {
     };
 
     const updateFollower = () => {
-      // Smooth trailing physics
-      const speed = 0.15;
+      // Smooth trailing physics - slightly adjusted for the larger mass
+      const speed = 1;
       followerX += (mouseX - followerX) * speed;
       followerY += (mouseY - followerY) * speed;
       
@@ -73,28 +73,29 @@ const CustomCursor: React.FC = () => {
   if (typeof window === 'undefined') return null;
 
   return (
-    <div className={`fixed inset-0 pointer-events-none z-[9999] transition-opacity duration-300 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
-      {/* Center Dot */}
+    <div className={`fixed inset-0 pointer-events-none z-[9999] transition-opacity duration-500 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+      {/* Center Dot - Now larger and more visible */}
       <div 
         ref={cursorRef}
-        className="fixed top-0 left-0 w-5 h-5 rounded-full -translate-x-1/2 -translate-y-1/2 mix-blend-difference"
+        className="fixed top-0 left-0 w-2.5 h-2.5 rounded-full -translate-x-1/2 -translate-y-1/2 mix-blend-difference shadow-sm"
         style={{ backgroundColor: COLORS.AQUA }}
       />
       
-      {/* Outer Follower Ring */}
+      {/* Outer Follower Ring - Larger scale and stronger presence */}
       <div 
         ref={followerRef}
-        className={`fixed top-0 left-0 rounded-full -translate-x-1/2 -translate-y-1/2 transition-all duration-300 ease-out flex items-center justify-center overflow-hidden
-          ${isHovering ? 'w-20 h-20 border-none' : 'w-10 h-10 border border-aqua/30'}
-          ${isClicking ? 'scale-75' : 'scale-100'}
+        className={`fixed top-0 left-0 rounded-full -translate-x-1/2 -translate-y-1/2 transition-all duration-500 cubic-bezier(0.23, 1, 0.32, 1) flex items-center justify-center overflow-hidden
+          ${isHovering ? 'w-32 h-32 border-none' : 'w-14 h-14 border-2 border-aqua/60'}
+          ${isClicking ? 'scale-60' : 'scale-100'}
         `}
         style={{ 
-          backgroundColor: isHovering ? `${COLORS.AQUA}25` : 'transparent',
-          backdropFilter: isHovering ? 'blur(4px)' : 'none'
+          backgroundColor: isHovering ? `${COLORS.AQUA}40` : 'transparent',
+          backdropFilter: isHovering ? 'blur(8px)' : 'none',
+          boxShadow: isHovering ? `0 20px 40px rgba(129, 199, 212, 0.2)` : 'none'
         }}
       >
         {cursorText && (
-          <span className="text-[10px] font-black uppercase tracking-widest text-navy animate-in fade-in zoom-in duration-300">
+          <span className="text-[11px] font-black uppercase tracking-[0.25em] text-navy animate-in fade-in zoom-in slide-in-from-bottom-2 duration-500">
             {cursorText}
           </span>
         )}
