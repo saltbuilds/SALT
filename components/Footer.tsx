@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { SaltLogo, COLORS } from '../constants';
+import SaltCharacter from './SaltCharacter';
 
 const Footer: React.FC = () => {
   const socials = [
@@ -47,8 +48,13 @@ const Footer: React.FC = () => {
   ];
 
   return (
-    <footer className="py-20 text-white" style={{ backgroundColor: COLORS.NAVY }} id="contact">
-      <div className="max-w-7xl mx-auto px-6">
+    <footer className="py-20 text-white relative overflow-hidden" style={{ backgroundColor: COLORS.NAVY }} id="contact">
+      {/* Vacation Mascot placement */}
+      <div className="absolute top-10 right-10 opacity-20 hover:opacity-100 transition-opacity hidden lg:block">
+        <SaltCharacter type="vacation" size={150} />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="grid md:grid-cols-4 gap-16 mb-20">
           {/* Brand */}
           <div className="col-span-2 space-y-8">

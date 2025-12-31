@@ -3,6 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { GoogleGenAI } from '@google/genai';
 import { COLORS, SaltLogo, BRAND_CONFIG } from '../constants';
 import { Message } from '../types';
+import SaltCharacter from './SaltCharacter';
 
 const ChatAssistant: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -83,7 +84,9 @@ const ChatAssistant: React.FC = () => {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
           </svg>
         ) : (
-          <SaltLogo className="w-10 h-10 text-white" />
+          <div className="flex items-center justify-center">
+            <SaltCharacter type="thinking" size={60} />
+          </div>
         )}
       </button>
 
@@ -93,8 +96,8 @@ const ChatAssistant: React.FC = () => {
           <div className="p-8 text-white flex justify-between items-center relative overflow-hidden" style={{ backgroundColor: COLORS.NAVY }}>
              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full animate-[shimmer_3s_infinite]" />
             <div className="flex items-center gap-4 relative z-10">
-              <div className="w-10 h-10 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center border border-white/20">
-                <SaltLogo className="w-6 h-6" />
+              <div className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center border border-white/20">
+                <SaltCharacter type="thinking" size={40} />
               </div>
               <div>
                 <div className="font-black text-sm tracking-widest uppercase">{BRAND_CONFIG.name} AI</div>

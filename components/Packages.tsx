@@ -2,14 +2,16 @@
 import React, { useState } from 'react';
 import { COLORS } from '../constants';
 import { PackageType } from '../types';
+import SaltCharacter from './SaltCharacter';
 
-const pricingPlans: PackageType[] = [
+const pricingPlans: (PackageType & { char: any })[] = [
   {
     name: "Monthly",
     price: "Variable",
     billingInfo: "Flexible Billing",
     duration: "30-day notice",
     icon: "ICON: Calendar",
+    char: "musician",
     features: [
       { label: "Standard Support", included: true },
       { label: "Essential Security", included: true },
@@ -23,6 +25,7 @@ const pricingPlans: PackageType[] = [
     savings: "Loyalty Discount",
     duration: "6 months contract",
     icon: "ICON: Shield",
+    char: "gardener",
     features: [
       { label: "Priority Support", included: true },
       { label: "Seasonal Designs", included: true },
@@ -37,6 +40,7 @@ const pricingPlans: PackageType[] = [
     duration: "12 months contract",
     icon: "ICON: Trophy",
     isPopular: true,
+    char: "hero",
     features: [
       { label: "24/7 Priority+", included: true },
       { label: "Quarterly Strategy", included: true },
@@ -123,17 +127,8 @@ const Packages: React.FC = () => {
                     <h3 className="text-3xl font-black tracking-tight" style={{ color: COLORS.NAVY }}>{pkg.name}</h3>
                     <p className="text-[10px] font-black opacity-40 uppercase tracking-[0.2em] mt-1">{pkg.duration}</p>
                   </div>
-                  <div 
-                    className={`w-8 h-8 rounded-2xl border-2 flex items-center justify-center transition-all duration-300 ${
-                      isSelected ? 'border-transparent scale-110 shadow-lg' : 'border-navy/10'
-                    }`}
-                    style={{ backgroundColor: isSelected ? COLORS.AQUA : 'transparent' }}
-                  >
-                    {isSelected && (
-                      <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={4} d="M5 13l4 4L19 7" />
-                      </svg>
-                    )}
+                  <div className="relative">
+                    <SaltCharacter type={pkg.char} size={60} className={`transition-all duration-500 ${isSelected ? 'scale-110' : 'opacity-40 grayscale'}`} />
                   </div>
                 </div>
 
@@ -217,10 +212,6 @@ const Packages: React.FC = () => {
           </div>
         </div>
       </div>
-      
-      {/* Decorative Blur Spheres */}
-      <div className="absolute top-1/4 -left-20 w-80 h-80 bg-aqua/5 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute bottom-1/4 -right-20 w-80 h-80 bg-navy/5 rounded-full blur-[100px] pointer-events-none" />
     </div>
   );
 };
