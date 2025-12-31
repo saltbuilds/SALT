@@ -1,0 +1,8 @@
+{
+  "name": "SALT Web Agency Landing Page",
+  "description": "A premium, high-performance landing page for SALT, a modern web development agency, featuring a clean 2D design and professional UI/UX.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
