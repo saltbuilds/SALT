@@ -35,7 +35,7 @@ const Footer: React.FC = () => {
     },
     { 
       name: 'LinkedIn', 
-      url: 'https://www.linkedin.com/company/saltbuilds',
+      url: 'https://www.linkedin.com/company/saltbuilds/about/?viewAsMember=true',
       icon: (
         <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
           <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
