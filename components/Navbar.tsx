@@ -53,7 +53,7 @@ const Navbar: React.FC<NavbarProps> = ({ scrolled }) => {
             className="px-6 py-2.5 rounded-xl text-white font-bold text-sm uppercase tracking-widest transition-all hover:scale-105 hover:shadow-lg active:scale-95 shadow-md backdrop-blur-md bg-opacity-90"
             style={{ backgroundColor: COLORS.NAVY }}
           >
-            Get Quote
+            LET'S TALK
           </button>
         </div>
 
@@ -91,7 +91,7 @@ const Navbar: React.FC<NavbarProps> = ({ scrolled }) => {
               className="w-full py-5 rounded-2xl text-white font-bold uppercase tracking-widest text-sm shadow-xl"
               style={{ backgroundColor: COLORS.NAVY }}
             >
-              Get Quote
+              LET'S TALK
             </button>
           </div>
         </div>

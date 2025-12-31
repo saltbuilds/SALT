@@ -25,15 +25,14 @@ const Hero: React.FC = () => {
             className="text-6xl md:text-8xl font-black leading-[0.95] tracking-tighter"
             style={{ color: COLORS.NAVY }}
           >
-            Digital <br/>
-            Foundations <br/>
-            <span style={{ color: COLORS.AQUA }}>Built with Salt.</span>
+            Worth <br/>
+            Your <span style={{ color: COLORS.AQUA }}>Salt.</span>
           </h1>
           <p 
             className="text-xl leading-relaxed opacity-70 font-medium max-w-md"
             style={{ color: COLORS.NAVY }}
           >
-            We transform vision into high-performance reality using minimalist 2D design and robust technical architecture.
+            Digital foundations seasoned with technical rigor and minimalist soul. We build what stays.
           </p>
           <div className="flex flex-col sm:flex-row gap-5 pt-4">
             <button 
@@ -41,7 +40,7 @@ const Hero: React.FC = () => {
               className="px-12 py-5 rounded-2xl text-white font-black text-sm uppercase tracking-widest transition-all hover:shadow-2xl hover:-translate-y-1 active:scale-95 shadow-xl relative overflow-hidden group"
               style={{ backgroundColor: COLORS.NAVY }}
             >
-              <span className="relative z-10">Get Started</span>
+              <span className="relative z-10">LET'S TALK</span>
               <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity" />
             </button>
             <button 
@@ -49,7 +48,7 @@ const Hero: React.FC = () => {
               className="px-12 py-5 rounded-2xl font-black text-sm uppercase tracking-widest border border-navy/10 transition-all hover:bg-white active:scale-95 bg-white/40 backdrop-blur-md shadow-sm"
               style={{ color: COLORS.NAVY }}
             >
-              Portfolio
+              THE PROOF
             </button>
           </div>
         </div>
