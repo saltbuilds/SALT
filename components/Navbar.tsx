@@ -16,6 +16,13 @@ const Navbar: React.FC<NavbarProps> = ({ scrolled }) => {
     { name: 'Contact', href: '#contact' },
   ];
 
+  const scrollToPackages = () => {
+    const element = document.getElementById('packages');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <nav 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -39,7 +46,8 @@ const Navbar: React.FC<NavbarProps> = ({ scrolled }) => {
             </a>
           ))}
           <button 
-            className="px-6 py-2.5 rounded-full text-white font-bold text-sm uppercase tracking-widest transition-all hover:scale-105 active:scale-95"
+            onClick={scrollToPackages}
+            className="px-6 py-2.5 rounded-full text-white font-bold text-sm uppercase tracking-widest transition-all hover:scale-105 active:scale-95 shadow-md"
             style={{ backgroundColor: COLORS.NAVY }}
           >
             Get Quote
@@ -72,6 +80,16 @@ const Navbar: React.FC<NavbarProps> = ({ scrolled }) => {
                 {link.name}
               </a>
             ))}
+            <button 
+              onClick={() => {
+                setMobileMenuOpen(false);
+                scrollToPackages();
+              }}
+              className="w-full py-4 rounded-xl text-white font-bold uppercase tracking-widest"
+              style={{ backgroundColor: COLORS.NAVY }}
+            >
+              Get Quote
+            </button>
           </div>
         </div>
       )}

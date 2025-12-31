@@ -3,6 +3,13 @@ import React from 'react';
 import { COLORS } from '../constants';
 
 const Hero: React.FC = () => {
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
@@ -29,13 +36,15 @@ const Hero: React.FC = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 pt-4">
             <button 
-              className="px-8 py-4 rounded-lg text-white font-bold text-lg transition-all hover:shadow-xl hover:-translate-y-1 active:scale-95 shadow-lg"
+              onClick={() => scrollToSection('packages')}
+              className="px-10 py-4 rounded-xl text-white font-bold text-lg transition-all hover:opacity-90 active:scale-95 shadow-lg"
               style={{ backgroundColor: COLORS.NAVY }}
             >
               Get Started
             </button>
             <button 
-              className="px-8 py-4 rounded-lg font-bold text-lg border-2 transition-all hover:bg-slate-50 active:scale-95"
+              onClick={() => scrollToSection('portfolio')}
+              className="px-10 py-4 rounded-xl font-bold text-lg border-2 transition-all hover:bg-slate-50 active:scale-95 bg-white"
               style={{ borderColor: COLORS.NAVY, color: COLORS.NAVY }}
             >
               View Portfolio
