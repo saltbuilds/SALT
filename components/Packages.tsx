@@ -1,66 +1,82 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { COLORS } from '../constants';
 import { PackageType } from '../types';
 
 const pricingPlans: PackageType[] = [
   {
     name: "Monthly",
-    price: "Rs. 8,000",
-    billingInfo: "Billed Monthly",
+    price: "Variable",
+    billingInfo: "Flexible Billing",
     duration: "30-day notice",
     icon: "ICON: Calendar",
     features: [
-      { label: "Setup Fee", included: "Rs. 0" },
-      { label: "First Month", included: "FREE" },
-      { label: "Seasonal Designs", included: false },
-      { label: "Trend Updates", included: false },
-      { label: "Support Priority", included: "Standard" },
-      { label: "Strategy Calls", included: false },
+      { label: "Standard Support", included: true },
+      { label: "Essential Security", included: true },
+      { label: "Basic Analytics", included: true },
     ]
   },
   {
     name: "6-Month",
-    price: "Rs. 7,000",
-    billingInfo: "Rs. 42,000 upfront",
-    savings: "Save Rs. 6,000",
+    price: "Variable",
+    billingInfo: "Priority Billing",
+    savings: "Loyalty Discount",
     duration: "6 months contract",
     icon: "ICON: Shield",
     features: [
-      { label: "Setup Fee", included: "Rs. 0" },
-      { label: "First Month", included: "FREE" },
-      { label: "Seasonal Designs", included: "Yes" },
-      { label: "Trend Updates", included: false },
-      { label: "Support Priority", included: "Priority" },
-      { label: "Strategy Calls", included: false },
+      { label: "Priority Support", included: true },
+      { label: "Seasonal Designs", included: true },
+      { label: "Advanced Security", included: true },
     ]
   },
   {
     name: "Annual",
-    price: "Rs. 6,000",
-    billingInfo: "Rs. 72,000 upfront",
-    savings: "Save Rs. 24,000",
+    price: "Variable",
+    billingInfo: "Best Value",
+    savings: "Max Discount",
     duration: "12 months contract",
     icon: "ICON: Trophy",
     isPopular: true,
     features: [
-      { label: "Setup Fee", included: "Rs. 0" },
-      { label: "First Month", included: "FREE" },
-      { label: "Seasonal Designs", included: "Yes" },
-      { label: "Trend Updates", included: "Every 6 months" },
-      { label: "Support Priority", included: "Priority+" },
-      { label: "Strategy Calls", included: "Quarterly" },
+      { label: "24/7 Priority+", included: true },
+      { label: "Quarterly Strategy", included: true },
+      { label: "Trend Updates", included: true },
     ]
   }
 ];
 
 const addOns = [
-  { tier: "Tier 1", name: "Essential Upgrades", items: ["Basic SEO Audit", "Security Hardening", "Speed Optimization"] },
-  { tier: "Tier 2", name: "Growth Tools", items: ["Advanced Analytics", "A/B Testing", "CRM Integration"] },
-  { tier: "Tier 3", name: "Premium Features", items: ["Full E-commerce Suite", "Custom API Dev", "Priority 24/7 Support"] }
+  { id: 'seo', name: "SEO Audit & Strategy", tier: "Growth" },
+  { id: 'perf', name: "Performance Optimization", tier: "Core" },
+  { id: 'ecommerce', name: "E-Commerce Suite", tier: "Premium" },
+  { id: 'copy', name: "Professional Copywriting", tier: "Content" },
+  { id: 'api', name: "Custom API Integration", tier: "Technical" },
+  { id: 'maintenance', name: "24/7 Managed Support", tier: "Safety" },
 ];
 
 const Packages: React.FC = () => {
+  const [selectedPlan, setSelectedPlan] = useState<string>("Annual");
+  const [selectedAddons, setSelectedAddons] = useState<string[]>([]);
+
+  const toggleAddon = (id: string) => {
+    setSelectedAddons(prev => 
+      prev.includes(id) ? prev.filter(a => a !== id) : [...prev, id]
+    );
+  };
+
+  const handleSendInquiry = () => {
+    const plan = pricingPlans.find(p => p.name === selectedPlan);
+    const addonsList = addOns
+      .filter(a => selectedAddons.includes(a.id))
+      .map(a => `- ${a.name}`)
+      .join('%0D%0A');
+
+    const subject = `SALT Inquiry: ${selectedPlan} Package Configuration`;
+    const body = `Hi SALT Team,%0D%0A%0D%0AI would like to request a custom quote for my digital foundation.%0D%0A%0D%0ASelected Base Plan: ${selectedPlan}%0D%0ASelected Add-ons:%0D%0A${addonsList || '- No additional add-ons selected'}%0D%0A%0D%0APlease get back to me with the next steps.%0D%0A%0D%0AThanks!`;
+
+    window.location.href = `mailto:saltbuilds@gmail.com?subject=${subject}&body=${body}`;
+  };
+
   return (
     <div className="py-24 md:py-32">
       <div className="max-w-7xl mx-auto px-6">
@@ -69,93 +85,124 @@ const Packages: React.FC = () => {
             className="inline-block px-6 py-2 rounded-full text-sm font-bold uppercase tracking-widest mb-4 border shadow-sm"
             style={{ backgroundColor: 'white', color: COLORS.NAVY, borderColor: COLORS.AQUA }}
           >
-            💰 Pricing Structure
+            🛠️ Build Your Foundation
           </div>
           <h2 className="text-4xl md:text-6xl font-black" style={{ color: COLORS.NAVY }}>
-            Choose Your Growth Plan
+            Select Your Components
           </h2>
           <p className="text-xl max-w-2xl mx-auto opacity-70 font-medium" style={{ color: COLORS.NAVY }}>
-            Unlock premium features and significant savings with our annual billing.
-            The perfect foundation for a high-performance digital presence.
+            Choose a base plan and select your desired upgrades. 
+            We'll prepare a custom quote tailored to your specific needs.
           </p>
         </div>
 
-        {/* Pricing Grid */}
-        <div className="grid md:grid-cols-3 gap-8 items-start mb-24">
-          {pricingPlans.map((pkg) => (
-            <div 
-              key={pkg.name}
-              className={`relative bg-white rounded-[2.5rem] p-10 transition-all hover:shadow-2xl hover:-translate-y-2 flex flex-col border-2 ${
-                pkg.isPopular ? 'scale-105 z-10' : 'scale-100 z-0'
-              }`}
-              style={{ borderColor: pkg.isPopular ? COLORS.AQUA : '#EEF2F6' }}
-            >
-              {pkg.isPopular && (
-                <div 
-                  className="absolute -top-5 left-1/2 -translate-x-1/2 px-6 py-2 rounded-full text-white text-xs font-black tracking-widest uppercase shadow-xl flex items-center gap-2"
-                  style={{ backgroundColor: COLORS.NAVY }}
-                >
-                  <span className="text-yellow-400">★</span> Best Value
-                </div>
-              )}
-
-              {pkg.savings && (
-                <div 
-                  className="absolute top-8 right-8 px-3 py-1 rounded-lg text-[10px] font-bold uppercase tracking-tighter"
-                  style={{ backgroundColor: `${COLORS.AQUA}20`, color: COLORS.NAVY }}
-                >
-                  {pkg.savings}
-                </div>
-              )}
-
-              <div className="mb-8">
-                <div className="text-sm font-bold uppercase tracking-widest mb-2 opacity-50" style={{ color: COLORS.NAVY }}>{pkg.name}</div>
-                <div className="flex items-baseline gap-1 mb-1">
-                  <span className="text-4xl font-black" style={{ color: COLORS.NAVY }}>{pkg.price}</span>
-                  <span className="text-sm opacity-50 font-bold">/ month</span>
-                </div>
-                <div className="text-sm font-bold" style={{ color: COLORS.AQUA }}>{pkg.billingInfo}</div>
-              </div>
-
-              <div className="space-y-4 mb-10 pt-6 border-t border-slate-50">
-                {pkg.features.map((feature, idx) => (
-                  <div key={idx} className="flex justify-between items-center text-sm font-medium">
-                    <span className="text-slate-500">{feature.label}</span>
-                    <span className={`font-bold ${
-                      !feature.included ? 'text-slate-300' : 'text-slate-900'
-                    }`}>
-                      {typeof feature.included === 'string' ? feature.included : (feature.included ? '✓' : '✕')}
-                    </span>
-                  </div>
-                ))}
-              </div>
-
-              <button 
-                className="w-full py-4 rounded-xl font-bold uppercase tracking-widest text-sm transition-all hover:opacity-90 active:scale-95"
-                style={{ backgroundColor: COLORS.NAVY, color: 'white' }}
+        {/* Plan Selection */}
+        <div className="grid md:grid-cols-3 gap-8 mb-20">
+          {pricingPlans.map((pkg) => {
+            const isSelected = selectedPlan === pkg.name;
+            return (
+              <div 
+                key={pkg.name}
+                onClick={() => setSelectedPlan(pkg.name)}
+                className={`relative cursor-pointer bg-white rounded-[2.5rem] p-8 transition-all border-2 flex flex-col ${
+                  isSelected ? 'shadow-2xl -translate-y-2' : 'hover:border-slate-200'
+                }`}
+                style={{ borderColor: isSelected ? COLORS.AQUA : '#EEF2F6' }}
               >
-                Select {pkg.name}
-              </button>
-            </div>
-          ))}
+                {pkg.isPopular && (
+                  <div 
+                    className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-white text-[10px] font-black tracking-widest uppercase shadow-lg"
+                    style={{ backgroundColor: COLORS.NAVY }}
+                  >
+                    Recommended
+                  </div>
+                )}
+                
+                <div className="flex justify-between items-start mb-6">
+                  <div>
+                    <h3 className="text-2xl font-black" style={{ color: COLORS.NAVY }}>{pkg.name}</h3>
+                    <p className="text-xs font-bold opacity-50 uppercase tracking-widest">{pkg.duration}</p>
+                  </div>
+                  <div 
+                    className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors ${
+                      isSelected ? 'border-transparent' : 'border-slate-200'
+                    }`}
+                    style={{ backgroundColor: isSelected ? COLORS.AQUA : 'transparent' }}
+                  >
+                    {isSelected && <div className="w-2 h-2 bg-white rounded-full" />}
+                  </div>
+                </div>
+
+                <div className="space-y-3 mt-auto pt-6 border-t border-slate-50">
+                  {pkg.features.map((f, i) => (
+                    <div key={i} className="flex items-center gap-2 text-sm font-medium text-slate-500">
+                      <div className="w-1 h-1 rounded-full" style={{ backgroundColor: COLORS.AQUA }} />
+                      {f.label}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
         </div>
 
-        {/* Add-ons */}
-        <div className="grid md:grid-cols-3 gap-8 pt-16 border-t border-slate-100">
-          {addOns.map((addon) => (
-            <div key={addon.tier} className="space-y-4">
-              <div className="text-[10px] font-black uppercase tracking-[0.2em]" style={{ color: COLORS.AQUA }}>{addon.tier}</div>
-              <h4 className="text-xl font-bold" style={{ color: COLORS.NAVY }}>{addon.name}</h4>
-              <ul className="space-y-2">
-                {addon.items.map((item, i) => (
-                  <li key={i} className="flex items-center gap-2 text-sm text-slate-500 font-medium">
-                    <div className="w-1 h-1 rounded-full" style={{ backgroundColor: COLORS.AQUA }} />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+        {/* Add-ons Checklist */}
+        <div className="bg-slate-50 rounded-[3rem] p-8 md:p-12 mb-16 border border-slate-100">
+          <div className="mb-10">
+            <h3 className="text-2xl font-black mb-2" style={{ color: COLORS.NAVY }}>Select Add-ons</h3>
+            <p className="text-slate-500 font-medium">Fine-tune your digital foundation with specific expert services.</p>
+          </div>
+          
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {addOns.map((addon) => {
+              const isActive = selectedAddons.includes(addon.id);
+              return (
+                <div 
+                  key={addon.id}
+                  onClick={() => toggleAddon(addon.id)}
+                  className={`p-6 rounded-2xl cursor-pointer transition-all border-2 flex items-center gap-4 bg-white ${
+                    isActive ? 'shadow-md scale-[1.02]' : 'hover:border-slate-200 opacity-70'
+                  }`}
+                  style={{ borderColor: isActive ? COLORS.AQUA : 'transparent' }}
+                >
+                  <div 
+                    className={`w-5 h-5 rounded flex items-center justify-center transition-colors border-2 ${
+                      isActive ? 'border-transparent' : 'border-slate-200'
+                    }`}
+                    style={{ backgroundColor: isActive ? COLORS.AQUA : 'transparent' }}
+                  >
+                    {isActive && (
+                      <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={4} d="M5 13l4 4L19 7" />
+                      </svg>
+                    )}
+                  </div>
+                  <div>
+                    <div className="text-[10px] font-black uppercase tracking-widest" style={{ color: COLORS.AQUA }}>{addon.tier}</div>
+                    <div className="font-bold text-slate-800">{addon.name}</div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* CTA Section */}
+        <div className="flex flex-col items-center gap-6">
+          <div className="text-center">
+            <p className="text-slate-500 font-bold uppercase text-xs tracking-[0.2em] mb-4">Ready to build?</p>
+            <button 
+              onClick={handleSendInquiry}
+              className="px-12 py-5 rounded-2xl text-white font-black text-lg uppercase tracking-widest transition-all hover:shadow-2xl hover:-translate-y-1 active:scale-95 flex items-center gap-4"
+              style={{ backgroundColor: COLORS.NAVY }}
+            >
+              Generate Inquiry Email
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+            </button>
+          </div>
+          <p className="text-slate-400 text-sm font-medium">Clicking will open your email client addressed to saltbuilds@gmail.com</p>
         </div>
       </div>
     </div>
