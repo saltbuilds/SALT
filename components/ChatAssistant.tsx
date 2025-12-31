@@ -15,12 +15,15 @@ const ChatAssistant: React.FC = () => {
   const chatRef = useRef<any>(null);
 
   useEffect(() => {
-    // Initialization with safety check for process.env
-    if (!chatRef.current) {
-      try {
-        const apiKey = typeof process !== 'undefined' && process.env ? process.env.API_KEY : '';
-        if (apiKey) {
-          const ai = new GoogleGenAI({ apiKey: apiKey });
+    const initChat = async () => {
+      if (chatRef.current) return;
+      
+      // Vite will inject this via the define config
+      const apiKey = process.env.API_KEY;
+      
+      if (apiKey) {
+        try {
+          const ai = new GoogleGenAI({ apiKey });
           chatRef.current = ai.chats.create({
             model: 'gemini-3-flash-preview',
             config: {
@@ -32,11 +35,13 @@ const ChatAssistant: React.FC = () => {
               Encourage users to "Get Started" or "View Portfolio". Keep responses concise.`
             }
           });
+        } catch (e) {
+          console.error("AI Assistant initialization failed:", e);
         }
-      } catch (e) {
-        console.error("AI Assistant failed to initialize:", e);
       }
-    }
+    };
+
+    initChat();
   }, []);
 
   useEffect(() => {
@@ -47,25 +52,26 @@ const ChatAssistant: React.FC = () => {
 
   const handleSend = async () => {
     if (!input.trim() || isTyping) return;
-    if (!chatRef.current) {
-      setMessages(prev => [...prev, { role: 'user', text: input }, { role: 'model', text: "I'm currently offline. Please contact us via email!" }]);
-      setInput('');
-      return;
-    }
 
-    const userMessage: Message = { role: 'user', text: input };
-    const currentInput = input;
-    setMessages(prev => [...prev, userMessage]);
+    const userMsg = input;
+    setMessages(prev => [...prev, { role: 'user', text: userMsg }]);
     setInput('');
     setIsTyping(true);
 
+    if (!chatRef.current) {
+      setTimeout(() => {
+        setMessages(prev => [...prev, { role: 'model', text: "I'm currently in 'offline mode'. Please reach out to our team at hello@salt-agency.com for immediate assistance!" }]);
+        setIsTyping(false);
+      }, 1000);
+      return;
+    }
+
     try {
-      const response = await chatRef.current.sendMessage({ message: currentInput });
-      const modelText = response.text || "I'm sorry, I encountered an issue. Please try again.";
-      setMessages(prev => [...prev, { role: 'model', text: modelText }]);
+      const response = await chatRef.current.sendMessage({ message: userMsg });
+      setMessages(prev => [...prev, { role: 'model', text: response.text }]);
     } catch (error) {
       console.error(error);
-      setMessages(prev => [...prev, { role: 'model', text: "Error connecting to SALT services. Please try again later." }]);
+      setMessages(prev => [...prev, { role: 'model', text: "Connection issue. Please try again or refresh the page." }]);
     } finally {
       setIsTyping(false);
     }
@@ -73,7 +79,6 @@ const ChatAssistant: React.FC = () => {
 
   return (
     <div className="fixed bottom-8 right-8 z-[100] font-sans">
-      {/* Trigger Button */}
       <button 
         onClick={() => setIsOpen(!isOpen)}
         className="w-16 h-16 rounded-full shadow-2xl flex items-center justify-center transition-all hover:scale-110 active:scale-95"
@@ -88,18 +93,16 @@ const ChatAssistant: React.FC = () => {
         )}
       </button>
 
-      {/* Chat Window */}
       {isOpen && (
         <div className="absolute bottom-20 right-0 w-[350px] md:w-[400px] h-[500px] bg-white rounded-3xl shadow-2xl border border-slate-100 flex flex-col overflow-hidden animate-in slide-in-from-bottom-4 duration-300">
-          {/* Header */}
           <div className="p-6 text-white flex justify-between items-center" style={{ backgroundColor: COLORS.NAVY }}>
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
-                <SaltLogo className="w-6 h-6" />
+              <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center p-1">
+                <SaltLogo className="w-full h-full" />
               </div>
               <div>
                 <div className="font-bold text-sm tracking-tight">{BRAND_CONFIG.name} Assistant</div>
-                <div className="text-[10px] uppercase tracking-widest opacity-60">Online Now</div>
+                <div className="text-[10px] uppercase tracking-widest opacity-60">Professional Support</div>
               </div>
             </div>
             <button onClick={() => setIsOpen(false)} className="opacity-60 hover:opacity-100">
@@ -109,17 +112,10 @@ const ChatAssistant: React.FC = () => {
             </button>
           </div>
 
-          {/* Messages */}
           <div ref={scrollRef} className="flex-1 overflow-y-auto p-6 space-y-4 custom-scroll">
             {messages.map((m, i) => (
               <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                <div 
-                  className={`max-w-[85%] p-4 rounded-2xl text-sm leading-relaxed ${
-                    m.role === 'user' 
-                      ? 'bg-slate-100 text-slate-900 rounded-tr-none' 
-                      : 'border border-slate-100 text-slate-700 rounded-tl-none shadow-sm'
-                  }`}
-                >
+                <div className={`max-w-[85%] p-4 rounded-2xl text-sm leading-relaxed ${m.role === 'user' ? 'bg-slate-100 text-slate-900 rounded-tr-none' : 'border border-slate-100 text-slate-700 rounded-tl-none shadow-sm'}`}>
                   {m.text}
                 </div>
               </div>
@@ -135,7 +131,6 @@ const ChatAssistant: React.FC = () => {
             )}
           </div>
 
-          {/* Input */}
           <div className="p-4 border-t border-slate-50 bg-white">
             <div className="flex gap-2">
               <input 
@@ -143,7 +138,7 @@ const ChatAssistant: React.FC = () => {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                placeholder="Ask us anything..."
+                placeholder="How can we help?"
                 className="flex-1 bg-slate-50 border-none rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-[#81C7D4] transition-all outline-none"
               />
               <button 
