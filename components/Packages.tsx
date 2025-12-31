@@ -78,21 +78,20 @@ const Packages: React.FC = () => {
   };
 
   return (
-    <div className="py-24 md:py-32">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-20 space-y-6">
+    <div className="py-32 relative overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className="text-center mb-24 space-y-6">
           <div 
-            className="inline-block px-6 py-2 rounded-full text-sm font-bold uppercase tracking-widest mb-4 border shadow-sm"
-            style={{ backgroundColor: 'white', color: COLORS.NAVY, borderColor: COLORS.AQUA }}
+            className="inline-block px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.3em] mb-4 border border-white/40 bg-white/20 backdrop-blur-md shadow-sm"
+            style={{ color: COLORS.NAVY }}
           >
             🛠️ Build Your Foundation
           </div>
-          <h2 className="text-4xl md:text-6xl font-black" style={{ color: COLORS.NAVY }}>
-            Select Your Components
+          <h2 className="text-5xl md:text-7xl font-black tracking-tighter" style={{ color: COLORS.NAVY }}>
+            Choose Your Tier
           </h2>
           <p className="text-xl max-w-2xl mx-auto opacity-70 font-medium" style={{ color: COLORS.NAVY }}>
-            Choose a base plan and select your desired upgrades. 
-            We'll prepare a custom quote tailored to your specific needs.
+            A modular approach to high-end development. Select your contract duration and add the modules your brand needs.
           </p>
         </div>
 
@@ -104,39 +103,44 @@ const Packages: React.FC = () => {
               <div 
                 key={pkg.name}
                 onClick={() => setSelectedPlan(pkg.name)}
-                className={`relative cursor-pointer bg-white rounded-[2.5rem] p-8 transition-all border-2 flex flex-col ${
-                  isSelected ? 'shadow-2xl -translate-y-2' : 'hover:border-slate-200'
+                className={`group relative cursor-pointer rounded-[3rem] p-10 transition-all duration-500 border border-white/40 flex flex-col ${
+                  isSelected 
+                    ? 'bg-white/70 backdrop-blur-2xl shadow-2xl -translate-y-2' 
+                    : 'bg-white/30 backdrop-blur-md hover:bg-white/50'
                 }`}
-                style={{ borderColor: isSelected ? COLORS.AQUA : '#EEF2F6' }}
               >
                 {pkg.isPopular && (
                   <div 
-                    className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-white text-[10px] font-black tracking-widest uppercase shadow-lg"
+                    className="absolute -top-4 left-1/2 -translate-x-1/2 px-5 py-1.5 rounded-full text-white text-[9px] font-black tracking-[0.2em] uppercase shadow-xl z-20"
                     style={{ backgroundColor: COLORS.NAVY }}
                   >
                     Recommended
                   </div>
                 )}
                 
-                <div className="flex justify-between items-start mb-6">
+                <div className="flex justify-between items-start mb-8">
                   <div>
-                    <h3 className="text-2xl font-black" style={{ color: COLORS.NAVY }}>{pkg.name}</h3>
-                    <p className="text-xs font-bold opacity-50 uppercase tracking-widest">{pkg.duration}</p>
+                    <h3 className="text-3xl font-black tracking-tight" style={{ color: COLORS.NAVY }}>{pkg.name}</h3>
+                    <p className="text-[10px] font-black opacity-40 uppercase tracking-[0.2em] mt-1">{pkg.duration}</p>
                   </div>
                   <div 
-                    className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors ${
-                      isSelected ? 'border-transparent' : 'border-slate-200'
+                    className={`w-8 h-8 rounded-2xl border-2 flex items-center justify-center transition-all duration-300 ${
+                      isSelected ? 'border-transparent scale-110 shadow-lg' : 'border-navy/10'
                     }`}
                     style={{ backgroundColor: isSelected ? COLORS.AQUA : 'transparent' }}
                   >
-                    {isSelected && <div className="w-2 h-2 bg-white rounded-full" />}
+                    {isSelected && (
+                      <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={4} d="M5 13l4 4L19 7" />
+                      </svg>
+                    )}
                   </div>
                 </div>
 
-                <div className="space-y-3 mt-auto pt-6 border-t border-slate-50">
+                <div className="space-y-4 mt-auto pt-8 border-t border-navy/5">
                   {pkg.features.map((f, i) => (
-                    <div key={i} className="flex items-center gap-2 text-sm font-medium text-slate-500">
-                      <div className="w-1 h-1 rounded-full" style={{ backgroundColor: COLORS.AQUA }} />
+                    <div key={i} className="flex items-center gap-3 text-sm font-bold text-navy/60">
+                      <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: COLORS.AQUA }} />
                       {f.label}
                     </div>
                   ))}
@@ -147,27 +151,33 @@ const Packages: React.FC = () => {
         </div>
 
         {/* Add-ons Checklist */}
-        <div className="bg-slate-50 rounded-[3rem] p-8 md:p-12 mb-16 border border-slate-100">
-          <div className="mb-10">
-            <h3 className="text-2xl font-black mb-2" style={{ color: COLORS.NAVY }}>Select Add-ons</h3>
-            <p className="text-slate-500 font-medium">Fine-tune your digital foundation with specific expert services.</p>
+        <div className="bg-white/20 backdrop-blur-2xl rounded-[4rem] p-10 md:p-16 mb-20 border border-white/40 shadow-xl">
+          <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div className="max-w-xl">
+              <h3 className="text-4xl font-black tracking-tight mb-3" style={{ color: COLORS.NAVY }}>Power-Up Add-ons</h3>
+              <p className="text-navy/60 font-bold text-lg">Scale your foundation with specialized modules.</p>
+            </div>
+            <div className="text-navy/30 font-black text-xs uppercase tracking-widest hidden md:block">
+              Multi-select available
+            </div>
           </div>
           
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {addOns.map((addon) => {
               const isActive = selectedAddons.includes(addon.id);
               return (
                 <div 
                   key={addon.id}
                   onClick={() => toggleAddon(addon.id)}
-                  className={`p-6 rounded-2xl cursor-pointer transition-all border-2 flex items-center gap-4 bg-white ${
-                    isActive ? 'shadow-md scale-[1.02]' : 'hover:border-slate-200 opacity-70'
+                  className={`p-8 rounded-[2rem] cursor-pointer transition-all duration-300 border border-white/40 flex items-center gap-5 ${
+                    isActive 
+                      ? 'bg-white/80 shadow-xl scale-[1.03] border-aqua/30' 
+                      : 'bg-white/30 backdrop-blur-sm hover:bg-white/50 opacity-80'
                   }`}
-                  style={{ borderColor: isActive ? COLORS.AQUA : 'transparent' }}
                 >
                   <div 
-                    className={`w-5 h-5 rounded flex items-center justify-center transition-colors border-2 ${
-                      isActive ? 'border-transparent' : 'border-slate-200'
+                    className={`w-6 h-6 rounded-lg flex items-center justify-center transition-all border-2 ${
+                      isActive ? 'border-transparent bg-aqua scale-110' : 'border-navy/10'
                     }`}
                     style={{ backgroundColor: isActive ? COLORS.AQUA : 'transparent' }}
                   >
@@ -178,8 +188,8 @@ const Packages: React.FC = () => {
                     )}
                   </div>
                   <div>
-                    <div className="text-[10px] font-black uppercase tracking-widest" style={{ color: COLORS.AQUA }}>{addon.tier}</div>
-                    <div className="font-bold text-slate-800">{addon.name}</div>
+                    <div className="text-[9px] font-black uppercase tracking-[0.2em] mb-1" style={{ color: COLORS.AQUA }}>{addon.tier}</div>
+                    <div className="font-black text-navy tracking-tight">{addon.name}</div>
                   </div>
                 </div>
               );
@@ -188,23 +198,29 @@ const Packages: React.FC = () => {
         </div>
 
         {/* CTA Section */}
-        <div className="flex flex-col items-center gap-6">
+        <div className="flex flex-col items-center gap-8">
           <div className="text-center">
-            <p className="text-slate-500 font-bold uppercase text-xs tracking-[0.2em] mb-4">Ready to build?</p>
             <button 
               onClick={handleSendInquiry}
-              className="px-12 py-5 rounded-2xl text-white font-black text-lg uppercase tracking-widest transition-all hover:shadow-2xl hover:-translate-y-1 active:scale-95 flex items-center gap-4"
+              className="group px-16 py-6 rounded-[2rem] text-white font-black text-lg uppercase tracking-widest transition-all hover:shadow-[0_20px_50px_rgba(26,43,68,0.3)] hover:-translate-y-2 active:scale-95 flex items-center gap-5 shadow-2xl overflow-hidden relative"
               style={{ backgroundColor: COLORS.NAVY }}
             >
-              Generate Inquiry Email
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+              <span className="relative z-10">Generate Inquiry</span>
+              <svg className="w-6 h-6 relative z-10 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
               </svg>
             </button>
           </div>
-          <p className="text-slate-400 text-sm font-medium">Clicking will open your email client addressed to saltbuilds@gmail.com</p>
+          <div className="bg-white/30 backdrop-blur-md px-6 py-2 rounded-full border border-white/40">
+            <p className="text-navy/50 text-xs font-black uppercase tracking-widest">A custom quote will be sent to your email.</p>
+          </div>
         </div>
       </div>
+      
+      {/* Decorative Blur Spheres */}
+      <div className="absolute top-1/4 -left-20 w-80 h-80 bg-aqua/5 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-1/4 -right-20 w-80 h-80 bg-navy/5 rounded-full blur-[100px] pointer-events-none" />
     </div>
   );
 };

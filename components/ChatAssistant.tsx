@@ -17,10 +17,7 @@ const ChatAssistant: React.FC = () => {
   useEffect(() => {
     const initChat = async () => {
       if (chatRef.current) return;
-      
-      // Vite will inject this via the define config
       const apiKey = process.env.API_KEY;
-      
       if (apiKey) {
         try {
           const ai = new GoogleGenAI({ apiKey });
@@ -31,7 +28,7 @@ const ChatAssistant: React.FC = () => {
               Your tone is professional, premium, and direct. 
               SALT builds high-performance websites and digital foundations.
               Key services: UI/UX Design, Web Development, SEO, E-commerce.
-              Pricing: Monthly (8k), 6-Month (7k/mo), Annual (6k/mo).
+              Pricing: Monthly, 6-Month, Annual.
               Encourage users to "Get Started" or "View Portfolio". Keep responses concise.`
             }
           });
@@ -40,7 +37,6 @@ const ChatAssistant: React.FC = () => {
         }
       }
     };
-
     initChat();
   }, []);
 
@@ -52,102 +48,110 @@ const ChatAssistant: React.FC = () => {
 
   const handleSend = async () => {
     if (!input.trim() || isTyping) return;
-
     const userMsg = input;
     setMessages(prev => [...prev, { role: 'user', text: userMsg }]);
     setInput('');
     setIsTyping(true);
-
     if (!chatRef.current) {
       setTimeout(() => {
-        setMessages(prev => [...prev, { role: 'model', text: "I'm currently in 'offline mode'. Please reach out to our team at hello@salt-agency.com for immediate assistance!" }]);
+        setMessages(prev => [...prev, { role: 'model', text: "Offline mode. Please contact hello@salt-agency.com" }]);
         setIsTyping(false);
       }, 1000);
       return;
     }
-
     try {
       const response = await chatRef.current.sendMessage({ message: userMsg });
       setMessages(prev => [...prev, { role: 'model', text: response.text }]);
     } catch (error) {
       console.error(error);
-      setMessages(prev => [...prev, { role: 'model', text: "Connection issue. Please try again or refresh the page." }]);
+      setMessages(prev => [...prev, { role: 'model', text: "Connection error." }]);
     } finally {
       setIsTyping(false);
     }
   };
 
   return (
-    <div className="fixed bottom-8 right-8 z-[100] font-sans">
+    <div className="fixed bottom-10 right-10 z-[100] font-sans">
       <button 
         onClick={() => setIsOpen(!isOpen)}
-        className="w-16 h-16 rounded-full shadow-2xl flex items-center justify-center transition-all hover:scale-110 active:scale-95"
+        className="w-20 h-20 rounded-[2rem] shadow-[0_20px_50px_rgba(26,43,68,0.2)] flex items-center justify-center transition-all hover:scale-110 active:scale-95 border border-white/40 group relative overflow-hidden"
         style={{ backgroundColor: COLORS.NAVY }}
       >
+        <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
         {isOpen ? (
-          <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
           </svg>
         ) : (
-          <SaltLogo className="w-8 h-8 text-white" />
+          <SaltLogo className="w-10 h-10 text-white" />
         )}
       </button>
 
       {isOpen && (
-        <div className="absolute bottom-20 right-0 w-[350px] md:w-[400px] h-[500px] bg-white rounded-3xl shadow-2xl border border-slate-100 flex flex-col overflow-hidden animate-in slide-in-from-bottom-4 duration-300">
-          <div className="p-6 text-white flex justify-between items-center" style={{ backgroundColor: COLORS.NAVY }}>
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center p-1">
-                <SaltLogo className="w-full h-full" />
+        <div className="absolute bottom-24 right-0 w-[380px] md:w-[420px] h-[600px] bg-white/70 backdrop-blur-3xl rounded-[3rem] shadow-[0_30px_100px_rgba(26,43,68,0.2)] border border-white/60 flex flex-col overflow-hidden animate-in zoom-in-95 fade-in slide-in-from-bottom-10 duration-500">
+          {/* Glass Header */}
+          <div className="p-8 text-white flex justify-between items-center relative overflow-hidden" style={{ backgroundColor: COLORS.NAVY }}>
+             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full animate-[shimmer_3s_infinite]" />
+            <div className="flex items-center gap-4 relative z-10">
+              <div className="w-10 h-10 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center border border-white/20">
+                <SaltLogo className="w-6 h-6" />
               </div>
               <div>
-                <div className="font-bold text-sm tracking-tight">{BRAND_CONFIG.name} Assistant</div>
-                <div className="text-[10px] uppercase tracking-widest opacity-60">Professional Support</div>
+                <div className="font-black text-sm tracking-widest uppercase">{BRAND_CONFIG.name} AI</div>
+                <div className="text-[9px] uppercase tracking-[0.2em] opacity-50 flex items-center gap-1.5">
+                  <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+                  Foundation Expert
+                </div>
               </div>
             </div>
-            <button onClick={() => setIsOpen(false)} className="opacity-60 hover:opacity-100">
-              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <button onClick={() => setIsOpen(false)} className="opacity-40 hover:opacity-100 transition-opacity relative z-10">
+              <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
           </div>
 
-          <div ref={scrollRef} className="flex-1 overflow-y-auto p-6 space-y-4 custom-scroll">
+          <div ref={scrollRef} className="flex-1 overflow-y-auto p-8 space-y-6 custom-scroll">
             {messages.map((m, i) => (
               <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                <div className={`max-w-[85%] p-4 rounded-2xl text-sm leading-relaxed ${m.role === 'user' ? 'bg-slate-100 text-slate-900 rounded-tr-none' : 'border border-slate-100 text-slate-700 rounded-tl-none shadow-sm'}`}>
+                <div className={`max-w-[85%] p-5 rounded-3xl text-sm font-medium leading-relaxed shadow-sm transition-all ${
+                  m.role === 'user' 
+                    ? 'bg-navy text-white rounded-tr-none' 
+                    : 'bg-white/60 backdrop-blur-sm border border-white/40 text-navy rounded-tl-none'
+                }`}>
                   {m.text}
                 </div>
               </div>
             ))}
             {isTyping && (
               <div className="flex justify-start">
-                <div className="bg-slate-50 border border-slate-100 p-4 rounded-2xl rounded-tl-none flex gap-1">
-                  <div className="w-1.5 h-1.5 bg-slate-300 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                  <div className="w-1.5 h-1.5 bg-slate-300 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                  <div className="w-1.5 h-1.5 bg-slate-300 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                <div className="bg-white/40 backdrop-blur-sm border border-white/40 p-5 rounded-3xl rounded-tl-none flex gap-1.5">
+                  <div className="w-1.5 h-1.5 bg-navy/20 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                  <div className="w-1.5 h-1.5 bg-navy/20 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                  <div className="w-1.5 h-1.5 bg-navy/20 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
                 </div>
               </div>
             )}
           </div>
 
-          <div className="p-4 border-t border-slate-50 bg-white">
-            <div className="flex gap-2">
+          {/* Glass Input Area */}
+          <div className="p-6 border-t border-white/40 bg-white/20">
+            <div className="flex gap-3 bg-white/40 backdrop-blur-md border border-white/60 rounded-[2rem] p-2 pr-2">
               <input 
                 type="text" 
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                placeholder="How can we help?"
-                className="flex-1 bg-slate-50 border-none rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-[#81C7D4] transition-all outline-none"
+                placeholder="Ask about our process..."
+                className="flex-1 bg-transparent border-none px-6 py-4 text-sm font-bold placeholder:text-navy/30 focus:ring-0 outline-none"
               />
               <button 
                 onClick={handleSend}
                 disabled={!input.trim() || isTyping}
-                className="w-12 h-12 flex items-center justify-center rounded-xl text-white transition-all hover:scale-105 active:scale-95 disabled:opacity-50"
+                className="w-14 h-14 flex items-center justify-center rounded-2xl text-white transition-all hover:scale-105 active:scale-95 disabled:opacity-30 shadow-lg"
                 style={{ backgroundColor: COLORS.NAVY }}
               >
-                <svg className="w-5 h-5 rotate-90" fill="currentColor" viewBox="0 0 20 20">
+                <svg className="w-6 h-6 rotate-90" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
                 </svg>
               </button>
@@ -155,6 +159,13 @@ const ChatAssistant: React.FC = () => {
           </div>
         </div>
       )}
+
+      <style>{`
+        @keyframes shimmer {
+          0% { transform: translateX(-100%); }
+          100% { transform: translateX(100%); }
+        }
+      `}</style>
     </div>
   );
 };

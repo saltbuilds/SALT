@@ -11,89 +11,91 @@ const Hero: React.FC = () => {
   };
 
   return (
-    <div className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
+    <div className="relative pt-32 pb-20 md:pt-48 md:pb-40 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-20 items-center">
         {/* Content */}
-        <div className="space-y-8 max-w-xl text-left">
+        <div className="space-y-8 max-w-xl text-left z-10">
           <div 
-            className="inline-block px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-[0.2em] mb-4"
-            style={{ backgroundColor: `${COLORS.AQUA}20`, color: COLORS.NAVY }}
+            className="inline-block px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.3em] mb-4 border border-white/50 backdrop-blur-md shadow-sm"
+            style={{ backgroundColor: `${COLORS.AQUA}15`, color: COLORS.NAVY }}
           >
             Premium Web Development
           </div>
           <h1 
-            className="text-5xl md:text-7xl font-extrabold leading-[1.1] tracking-tight"
+            className="text-6xl md:text-8xl font-black leading-[0.95] tracking-tighter"
             style={{ color: COLORS.NAVY }}
           >
-            Building Digital Foundations <br/>
-            <span style={{ color: COLORS.AQUA }}>with SALT.</span>
+            Digital <br/>
+            Foundations <br/>
+            <span style={{ color: COLORS.AQUA }}>Built with Salt.</span>
           </h1>
           <p 
-            className="text-xl leading-relaxed opacity-80"
+            className="text-xl leading-relaxed opacity-70 font-medium max-w-md"
             style={{ color: COLORS.NAVY }}
           >
-            We craft high-performance websites for businesses that want to stand out. Our approach combines sharp 2D design with robust technical excellence.
+            We transform vision into high-performance reality using minimalist 2D design and robust technical architecture.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 pt-4">
+          <div className="flex flex-col sm:flex-row gap-5 pt-4">
             <button 
               onClick={() => scrollToSection('packages')}
-              className="px-10 py-4 rounded-xl text-white font-bold text-lg transition-all hover:opacity-90 active:scale-95 shadow-lg"
+              className="px-12 py-5 rounded-2xl text-white font-black text-sm uppercase tracking-widest transition-all hover:shadow-2xl hover:-translate-y-1 active:scale-95 shadow-xl relative overflow-hidden group"
               style={{ backgroundColor: COLORS.NAVY }}
             >
-              Get Started
+              <span className="relative z-10">Get Started</span>
+              <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity" />
             </button>
             <button 
               onClick={() => scrollToSection('portfolio')}
-              className="px-10 py-4 rounded-xl font-bold text-lg border-2 transition-all hover:bg-slate-50 active:scale-95 bg-white shadow-sm"
-              style={{ borderColor: COLORS.NAVY, color: COLORS.NAVY }}
+              className="px-12 py-5 rounded-2xl font-black text-sm uppercase tracking-widest border border-navy/10 transition-all hover:bg-white active:scale-95 bg-white/40 backdrop-blur-md shadow-sm"
+              style={{ color: COLORS.NAVY }}
             >
-              View Portfolio
+              Portfolio
             </button>
           </div>
         </div>
 
         {/* Mockup Placeholder */}
-        <div className="relative">
+        <div className="relative lg:scale-110">
           <div 
-            className="aspect-[4/3] rounded-2xl border-4 border-white shadow-2xl relative overflow-hidden bg-white"
-            style={{ borderColor: COLORS.AQUA }}
+            className="aspect-[4/3] rounded-[2.5rem] border border-white/60 shadow-2xl relative overflow-hidden bg-white/40 backdrop-blur-3xl"
           >
+            {/* Glass Shine Effect Overlay */}
+            <div className="absolute inset-0 pointer-events-none bg-gradient-to-br from-white/30 via-transparent to-transparent opacity-50" />
+            
             {/* 2D Browser UI Representation */}
-            <div className="h-8 bg-slate-100 border-b flex items-center px-4 gap-1.5">
-              <div className="w-2.5 h-2.5 rounded-full bg-red-400" />
-              <div className="w-2.5 h-2.5 rounded-full bg-yellow-400" />
-              <div className="w-2.5 h-2.5 rounded-full bg-green-400" />
-            </div>
-            <div className="p-8 space-y-4">
-              <div className="w-3/4 h-8 bg-slate-100 rounded animate-pulse" />
-              <div className="w-full h-4 bg-slate-50 rounded" />
-              <div className="w-full h-4 bg-slate-50 rounded" />
-              <div className="w-2/3 h-4 bg-slate-50 rounded" />
-              <div className="grid grid-cols-3 gap-4 pt-8">
-                <div className="aspect-square bg-slate-100 rounded-lg" />
-                <div className="aspect-square bg-slate-100 rounded-lg" />
-                <div className="aspect-square bg-slate-100 rounded-lg" />
+            <div className="h-10 bg-white/40 border-b border-white/20 flex items-center px-6 gap-2">
+              <div className="flex gap-1.5">
+                <div className="w-3 h-3 rounded-full bg-slate-300" />
+                <div className="w-3 h-3 rounded-full bg-slate-300 opacity-60" />
+                <div className="w-3 h-3 rounded-full bg-slate-300 opacity-30" />
               </div>
-              <div className="mt-8 flex justify-center italic text-slate-400 text-sm font-medium">
-                Modern Laptop Mockup - SALT Agency
+              <div className="mx-auto w-32 h-4 bg-white/40 rounded-full" />
+            </div>
+            
+            <div className="p-10 space-y-6">
+              <div className="w-2/3 h-10 bg-white/60 rounded-xl" />
+              <div className="space-y-3">
+                <div className="w-full h-3 bg-white/40 rounded-full" />
+                <div className="w-full h-3 bg-white/40 rounded-full" />
+                <div className="w-1/2 h-3 bg-white/40 rounded-full" />
+              </div>
+              <div className="grid grid-cols-3 gap-6 pt-10">
+                {[1,2,3].map(i => (
+                  <div key={i} className="aspect-square bg-white/50 rounded-2xl border border-white/20 shadow-inner" />
+                ))}
               </div>
             </div>
           </div>
-          {/* Floating Element */}
+          
+          {/* Floating Glass Element */}
           <div 
-            className="absolute -bottom-10 -left-10 w-48 h-48 rounded-xl border-4 rotate-6 -z-10 bg-white shadow-lg hidden md:block"
-            style={{ borderColor: COLORS.AQUA }}
+            className="absolute -bottom-12 -left-12 w-48 h-48 rounded-3xl border border-white/40 rotate-12 -z-10 bg-white/20 backdrop-blur-2xl shadow-xl hidden md:block"
+          />
+          <div 
+            className="absolute -top-12 -right-12 w-32 h-32 rounded-full border border-white/20 -z-10 bg-aqua/10 backdrop-blur-lg animate-bounce duration-[5000ms] hidden md:block"
           />
         </div>
       </div>
-      
-      {/* Background Decorative Shapes */}
-      <div 
-        className="absolute top-0 right-0 w-1/3 h-full -z-20 opacity-5"
-        style={{ 
-          background: `radial-gradient(circle at top right, ${COLORS.AQUA}, transparent)` 
-        }}
-      />
     </div>
   );
 };
