@@ -19,32 +19,32 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col relative overflow-hidden">
+    <div className="min-h-screen flex flex-col relative overflow-hidden bg-gradient-to-br from-white via-[#F8FEFF] to-[#F0FAFB]">
       {/* Royal Background System with Subtle Cyan Gradient */}
       <div className="fixed inset-0 -z-10 pointer-events-none">
-        {/* Subtle Mist Gradient Base */}
-        <div className="absolute inset-0 bg-gradient-to-br from-white via-white to-[#F0F9FA]" />
+        {/* Refined Mist Gradient Base */}
+        <div className="absolute inset-0 bg-gradient-to-tr from-white via-[#F9FEFF] to-[#E6F7F9] opacity-60" />
         
         {/* Royal Cyan Blooms - Softened for Subtlety */}
         <div 
-          className="absolute top-[-10%] right-[-5%] w-[60%] h-[60%] rounded-full opacity-15 blur-[140px] animate-pulse"
-          style={{ background: 'radial-gradient(circle, #81C7D4 0%, transparent 70%)', animationDuration: '10s' }}
+          className="absolute top-[-15%] right-[-10%] w-[70%] h-[70%] rounded-full opacity-[0.12] blur-[150px] animate-pulse"
+          style={{ background: 'radial-gradient(circle, #81C7D4 0%, transparent 75%)', animationDuration: '12s' }}
         />
         
         {/* Royal Navy Depth - Minimal Anchor */}
         <div 
-          className="absolute bottom-[-5%] left-[-10%] w-[50%] h-[50%] rounded-full opacity-[0.04] blur-[120px]"
-          style={{ background: 'radial-gradient(circle, #1A2B44 0%, transparent 75%)' }}
+          className="absolute bottom-[-10%] left-[-5%] w-[55%] h-[55%] rounded-full opacity-[0.03] blur-[130px]"
+          style={{ background: 'radial-gradient(circle, #1A2B44 0%, transparent 80%)' }}
         />
         
-        {/* Extra Luminous Flare */}
+        {/* Center Luminous Glow */}
         <div 
-          className="absolute top-[20%] left-[5%] w-[35%] h-[35%] rounded-full opacity-[0.08] blur-[100px]"
-          style={{ background: 'radial-gradient(circle, #81C7D4 0%, transparent 60%)' }}
+          className="absolute top-[30%] left-[20%] w-[40%] h-[40%] rounded-full opacity-[0.06] blur-[110px]"
+          style={{ background: 'radial-gradient(circle, #81C7D4 0%, transparent 65%)' }}
         />
 
         {/* Fine Texture Overlay */}
-        <div className="absolute inset-0 opacity-[0.015] mix-blend-overlay bg-[url('https://www.transparenttextures.com/patterns/p6.png')]" />
+        <div className="absolute inset-0 opacity-[0.02] mix-blend-overlay bg-[url('https://www.transparenttextures.com/patterns/p6.png')]" />
       </div>
 
       <Navbar scrolled={scrolled} />
@@ -54,7 +54,7 @@ const App: React.FC = () => {
         </section>
         <section id="packages" className="relative">
           {/* Subtle section divider with glass effect */}
-          <div className="absolute inset-0 bg-white/30 backdrop-blur-[2px] -z-10" />
+          <div className="absolute inset-0 bg-white/40 backdrop-blur-[4px] -z-10" />
           <Packages />
         </section>
         <section id="portfolio">

@@ -47,10 +47,17 @@ const Footer: React.FC = () => {
     }
   ];
 
+  const services = [
+    "Web Development",
+    "UI/UX Design",
+    "E-Commerce",
+    "SEO Strategy"
+  ];
+
   return (
     <footer className="py-20 text-white relative overflow-hidden" style={{ backgroundColor: COLORS.NAVY }} id="contact">
       {/* Vacation Mascot placement */}
-      <div className="absolute top-10 right-10 opacity-20 hover:opacity-100 transition-opacity hidden lg:block">
+      <div className="absolute top-10 right-10 opacity-20 hover:opacity-100 transition-all duration-700 hidden lg:block hover:scale-110 hover:rotate-6">
         <SaltCharacter type="vacation" size={150} />
       </div>
 
@@ -58,11 +65,11 @@ const Footer: React.FC = () => {
         <div className="grid md:grid-cols-4 gap-16 mb-20">
           {/* Brand */}
           <div className="col-span-2 space-y-8">
-            <div className="flex items-center gap-4">
-              <div className="p-2 bg-white rounded-xl">
+            <div className="flex items-center gap-4 group cursor-pointer w-fit">
+              <div className="p-2 bg-white rounded-xl transition-all duration-500 group-hover:rotate-[360deg] group-hover:shadow-[0_0_20px_rgba(255,255,255,0.4)]">
                 <SaltLogo className="w-8 h-8" />
               </div>
-              <span className="text-3xl font-black tracking-tighter">SALT.</span>
+              <span className="text-3xl font-black tracking-tighter transition-all group-hover:text-[#81C7D4]">SALT.</span>
             </div>
             <p className="text-xl text-slate-300 leading-relaxed max-w-md">
               Crafting modern digital experiences with precision and clarity. We are your partner in building foundations that last.
@@ -74,7 +81,7 @@ const Footer: React.FC = () => {
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition-all hover:scale-110 active:scale-95"
+                  className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-[#81C7D4] hover:bg-white/10 transition-all hover:scale-110 active:scale-95 hover:shadow-[0_0_15px_rgba(129,199,212,0.3)] hover:border-[#81C7D4]/30"
                   aria-label={social.name}
                 >
                   {social.icon}
@@ -87,10 +94,15 @@ const Footer: React.FC = () => {
           <div>
             <h5 className="text-lg font-bold mb-8 uppercase tracking-widest text-slate-400">Services</h5>
             <ul className="space-y-4 font-medium text-slate-300">
-              <li className="hover:text-white cursor-pointer transition-colors">Web Development</li>
-              <li className="hover:text-white cursor-pointer transition-colors">UI/UX Design</li>
-              <li className="hover:text-white cursor-pointer transition-colors">E-Commerce</li>
-              <li className="hover:text-white cursor-pointer transition-colors">SEO Strategy</li>
+              {services.map((service) => (
+                <li 
+                  key={service}
+                  className="group flex items-center gap-0 hover:gap-3 hover:text-[#81C7D4] cursor-pointer transition-all duration-300"
+                >
+                  <div className="w-0 h-0.5 bg-[#81C7D4] transition-all duration-300 group-hover:w-4" />
+                  <span className="group-hover:translate-x-1 transition-transform duration-300">{service}</span>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -98,18 +110,26 @@ const Footer: React.FC = () => {
           <div>
             <h5 className="text-lg font-bold mb-8 uppercase tracking-widest text-slate-400">Contact</h5>
             <ul className="space-y-4 font-medium text-slate-300">
-              <li>hello@salt-agency.com</li>
-              <li>saltbuilds@gmail.com</li>
+              <li className="hover:text-[#81C7D4] transition-colors cursor-pointer">hello@salt-agency.com</li>
+              <li className="hover:text-[#81C7D4] transition-colors cursor-pointer">saltbuilds@gmail.com</li>
               <li className="pt-2 text-slate-500 text-xs italic">Building digital foundations worldwide.</li>
             </ul>
           </div>
         </div>
 
         <div className="pt-10 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 text-slate-500 text-sm font-medium">
-          <div>© {new Date().getFullYear()} SALT Web Development Agency. All rights reserved.</div>
+          <div className="hover:text-slate-300 transition-colors cursor-default">
+            © {new Date().getFullYear()} SALT Web Development Agency. All rights reserved.
+          </div>
           <div className="flex gap-8">
-            <span className="hover:text-white cursor-pointer transition-colors">Privacy Policy</span>
-            <span className="hover:text-white cursor-pointer transition-colors">Terms of Service</span>
+            <span className="hover:text-white cursor-pointer transition-colors relative group">
+              Privacy Policy
+              <span className="absolute -bottom-1 left-0 w-0 h-px bg-white/30 transition-all group-hover:w-full" />
+            </span>
+            <span className="hover:text-white cursor-pointer transition-colors relative group">
+              Terms of Service
+              <span className="absolute -bottom-1 left-0 w-0 h-px bg-white/30 transition-all group-hover:w-full" />
+            </span>
           </div>
         </div>
       </div>
