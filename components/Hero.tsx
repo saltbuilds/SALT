@@ -14,7 +14,7 @@ const Hero: React.FC = () => {
     <div className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
         {/* Content */}
-        <div className="space-y-8 max-w-xl">
+        <div className="space-y-8 max-w-xl text-left">
           <div 
             className="inline-block px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-[0.2em] mb-4"
             style={{ backgroundColor: `${COLORS.AQUA}20`, color: COLORS.NAVY }}
@@ -44,7 +44,7 @@ const Hero: React.FC = () => {
             </button>
             <button 
               onClick={() => scrollToSection('portfolio')}
-              className="px-10 py-4 rounded-xl font-bold text-lg border-2 transition-all hover:bg-slate-50 active:scale-95 bg-white"
+              className="px-10 py-4 rounded-xl font-bold text-lg border-2 transition-all hover:bg-slate-50 active:scale-95 bg-white shadow-sm"
               style={{ borderColor: COLORS.NAVY, color: COLORS.NAVY }}
             >
               View Portfolio
@@ -75,7 +75,7 @@ const Hero: React.FC = () => {
                 <div className="aspect-square bg-slate-100 rounded-lg" />
               </div>
               <div className="mt-8 flex justify-center italic text-slate-400 text-sm font-medium">
-                IMAGE: Modern Laptop Mockup - 2D Illustration
+                Modern Laptop Mockup - SALT Agency
               </div>
             </div>
           </div>
