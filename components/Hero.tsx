@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { COLORS } from '../constants';
 import SaltCharacter from './SaltCharacter';
 
@@ -11,14 +11,46 @@ const Hero: React.FC = () => {
     }
   };
 
+  // Generate unique salt particles for the hero mascot
+  const saltGrains = useMemo(() => {
+    return Array.from({ length: 12 }).map((_, i) => ({
+      id: i,
+      left: `${20 + Math.random() * 60}%`,
+      delay: `${Math.random() * 4}s`,
+      duration: `${1.5 + Math.random() * 1}s`,
+      size: `${2 + Math.random() * 3}px`,
+      drift: (Math.random() - 0.5) * 40,
+    }));
+  }, []);
+
   return (
     <div className="relative pt-32 pb-20 md:pt-48 md:pb-40 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-20 items-center">
         {/* Content */}
         <div className="space-y-8 max-w-xl text-left z-10 relative">
-          {/* Floating Mascot - Adjusted position slightly to not crowd the logo area above */}
+          {/* Floating Mascot with Sprinkle Animation */}
           <div className="absolute -top-16 -left-12 animate-bounce pointer-events-none hidden md:block" style={{ animationDuration: '4s' }}>
-            <SaltCharacter type="hero" size={110} />
+            <div className="relative">
+              <SaltCharacter type="hero" size={110} />
+              
+              {/* Salt Sprinkle Particles */}
+              <div className="absolute top-4 left-0 w-full h-full pointer-events-none">
+                {saltGrains.map((grain) => (
+                  <div
+                    key={grain.id}
+                    className="absolute bg-white rounded-full shadow-sm animate-sprinkle"
+                    style={{
+                      width: grain.size,
+                      height: grain.size,
+                      left: grain.left,
+                      animationDelay: grain.delay,
+                      animationDuration: grain.duration,
+                      '--drift': `${grain.drift}px`,
+                    } as React.CSSProperties}
+                  />
+                ))}
+              </div>
+            </div>
           </div>
 
           <div 
@@ -94,6 +126,25 @@ const Hero: React.FC = () => {
           />
         </div>
       </div>
+
+      <style>{`
+        @keyframes sprinkle {
+          0% {
+            transform: translateY(0) translateX(0) scale(1);
+            opacity: 0;
+          }
+          10% {
+            opacity: 0.8;
+          }
+          100% {
+            transform: translateY(120px) translateX(var(--drift)) scale(0.5);
+            opacity: 0;
+          }
+        }
+        .animate-sprinkle {
+          animation: sprinkle linear infinite;
+        }
+      `}</style>
     </div>
   );
 };
