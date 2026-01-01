@@ -31,7 +31,7 @@ const Navbar: React.FC<NavbarProps> = ({ scrolled }) => {
           : 'bg-transparent py-6'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
+      <div className="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20 flex justify-between items-center">
         {/* Brand/Logo */}
         <BrandIdentity iconSize="w-8 h-8" textSize="text-2xl" />
 

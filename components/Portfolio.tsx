@@ -13,11 +13,11 @@ const projects: ProjectType[] = [
 const Portfolio: React.FC = () => {
   return (
     <div id="portfolio" className="py-24 md:py-32">
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
           <div className="space-y-4">
             <h2 
-              className="text-4xl md:text-5xl font-black uppercase tracking-tighter"
+              className="text-4xl md:text-6xl font-black uppercase tracking-tighter"
               style={{ color: COLORS.NAVY }}
             >
               THE PROOF
@@ -37,15 +37,14 @@ const Portfolio: React.FC = () => {
           </button>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {projects.map((project) => (
             <div 
               key={project.id}
               className="group cursor-pointer"
-              data-cursor-text="VIEW"
             >
               <div 
-                className="aspect-[4/5] rounded-3xl mb-6 relative overflow-hidden transition-all group-hover:shadow-2xl border-2 border-slate-50"
+                className="aspect-[4/5] rounded-[2.5rem] mb-6 relative overflow-hidden transition-all group-hover:shadow-[0_30px_60px_-15px_rgba(129,199,212,0.3)] border border-slate-100 group-hover:border-aqua/20"
                 style={{ backgroundColor: COLORS.GRAY_LIGHT }}
               >
                 {/* 2D Design representation */}
@@ -63,14 +62,14 @@ const Portfolio: React.FC = () => {
                 </div>
                 
                 {/* Overlay on hover */}
-                <div className="absolute inset-0 bg-slate-900/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute inset-0 bg-slate-900/5 opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
               
-              <div className="px-2">
-                <div className="text-sm font-bold uppercase tracking-[0.2em] mb-1" style={{ color: COLORS.AQUA }}>
+              <div className="px-4">
+                <div className="text-[11px] font-black uppercase tracking-[0.2em] mb-1" style={{ color: COLORS.AQUA }}>
                   {project.category}
                 </div>
-                <h4 className="text-xl font-bold" style={{ color: COLORS.NAVY }}>
+                <h4 className="text-xl font-black tracking-tight" style={{ color: COLORS.NAVY }}>
                   {project.title}
                 </h4>
               </div>

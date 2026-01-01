@@ -61,7 +61,7 @@ const Footer: React.FC = () => {
         <SaltCharacter type="vacation" size={150} />
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+      <div className="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20 relative z-10">
         <div className="grid md:grid-cols-4 gap-16 mb-20">
           {/* Brand */}
           <div className="col-span-2 space-y-8">

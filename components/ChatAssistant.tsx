@@ -1,7 +1,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { GoogleGenAI } from '@google/genai';
-import { COLORS, SaltLogo, BRAND_CONFIG } from '../constants';
+import { COLORS, BRAND_CONFIG } from '../constants';
 import { Message } from '../types';
 import SaltCharacter from './SaltCharacter';
 
@@ -25,12 +25,7 @@ const ChatAssistant: React.FC = () => {
           chatRef.current = ai.chats.create({
             model: 'gemini-3-flash-preview',
             config: {
-              systemInstruction: `You are the AI assistant for ${BRAND_CONFIG.fullName}. 
-              Your tone is professional, premium, and direct. 
-              SALT builds high-performance websites and digital foundations.
-              Key services: UI/UX Design, Web Development, SEO, E-commerce.
-              Pricing: Monthly, 6-Month, Annual.
-              Encourage users to "Get Started" or "View Portfolio". Keep responses concise.`
+              systemInstruction: `You are the AI assistant for ${BRAND_CONFIG.fullName}. Your tone is professional and premium. SALT builds digital foundations.`
             }
           });
         } catch (e) {
@@ -72,7 +67,7 @@ const ChatAssistant: React.FC = () => {
   };
 
   return (
-    <div className="fixed bottom-10 right-10 z-[100] font-sans">
+    <div className="fixed bottom-10 right-10 z-[100] font-sans hidden md:block">
       <button 
         onClick={() => setIsOpen(!isOpen)}
         className="w-20 h-20 rounded-[2rem] shadow-[0_20px_50px_rgba(26,43,68,0.2)] flex items-center justify-center transition-all hover:scale-110 active:scale-95 border border-white/40 group relative overflow-hidden"
@@ -92,9 +87,7 @@ const ChatAssistant: React.FC = () => {
 
       {isOpen && (
         <div className="absolute bottom-24 right-0 w-[380px] md:w-[420px] h-[600px] bg-white/70 backdrop-blur-3xl rounded-[3rem] shadow-[0_30px_100px_rgba(26,43,68,0.2)] border border-white/60 flex flex-col overflow-hidden animate-in zoom-in-95 fade-in slide-in-from-bottom-10 duration-500">
-          {/* Glass Header */}
           <div className="p-8 text-white flex justify-between items-center relative overflow-hidden" style={{ backgroundColor: COLORS.NAVY }}>
-             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full animate-[shimmer_3s_infinite]" />
             <div className="flex items-center gap-4 relative z-10">
               <div className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center border border-white/20">
                 <SaltCharacter type="thinking" size={40} />
@@ -126,20 +119,10 @@ const ChatAssistant: React.FC = () => {
                 </div>
               </div>
             ))}
-            {isTyping && (
-              <div className="flex justify-start">
-                <div className="bg-white/40 backdrop-blur-sm border border-white/40 p-5 rounded-3xl rounded-tl-none flex gap-1.5">
-                  <div className="w-1.5 h-1.5 bg-navy/20 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                  <div className="w-1.5 h-1.5 bg-navy/20 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                  <div className="w-1.5 h-1.5 bg-navy/20 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
-                </div>
-              </div>
-            )}
           </div>
 
-          {/* Glass Input Area */}
           <div className="p-6 border-t border-white/40 bg-white/20">
-            <div className="flex gap-3 bg-white/40 backdrop-blur-md border border-white/60 rounded-[2rem] p-2 pr-2">
+            <div className="flex gap-3 bg-white/40 backdrop-blur-md border border-white/60 rounded-[2rem] p-2">
               <input 
                 type="text" 
                 value={input}
@@ -148,27 +131,13 @@ const ChatAssistant: React.FC = () => {
                 placeholder="Ask about our process..."
                 className="flex-1 bg-transparent border-none px-6 py-4 text-sm font-bold placeholder:text-navy/30 focus:ring-0 outline-none"
               />
-              <button 
-                onClick={handleSend}
-                disabled={!input.trim() || isTyping}
-                className="w-14 h-14 flex items-center justify-center rounded-2xl text-white transition-all hover:scale-105 active:scale-95 disabled:opacity-30 shadow-lg"
-                style={{ backgroundColor: COLORS.NAVY }}
-              >
-                <svg className="w-6 h-6 rotate-90" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
-                </svg>
+              <button onClick={handleSend} disabled={!input.trim() || isTyping} className="w-14 h-14 flex items-center justify-center rounded-2xl text-white shadow-lg" style={{ backgroundColor: COLORS.NAVY }}>
+                <svg className="w-6 h-6 rotate-90" fill="currentColor" viewBox="0 0 20 20"><path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" /></svg>
               </button>
             </div>
           </div>
         </div>
       )}
-
-      <style>{`
-        @keyframes shimmer {
-          0% { transform: translateX(-100%); }
-          100% { transform: translateX(100%); }
-        }
-      `}</style>
     </div>
   );
 };
